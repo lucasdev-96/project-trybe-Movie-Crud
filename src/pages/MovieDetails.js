@@ -43,7 +43,7 @@ class MovieDetails extends Component {
   renderDetails() {
     const { movie } = this.state;
     console.log(movie);
-    const { title, storyline, imagePath, genre, rating, subtitle, id } = movie;
+    const { title, storyline, imagePath, genre, rating, subtitle } = movie;
     return (
       <div>
         <img alt="Movie Cover" src={ `../${imagePath}` } />
@@ -59,7 +59,7 @@ class MovieDetails extends Component {
   render() {
     const { loading } = this.state;
     const { movie } = this.state;
-    const {id} = movie;
+    const { id } = movie;
     if (loading) return <Loading />;
     return (
       <div data-testid="movie-details">
