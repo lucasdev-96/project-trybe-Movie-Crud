@@ -10,7 +10,6 @@ class MovieDetails extends Component {
     this.state = {
       movie: {},
       loading: true,
-      id: '',
     };
   }
 
@@ -26,17 +25,16 @@ class MovieDetails extends Component {
   }
 
   fetchMovie() {
+    const { match } = this.props;
+    const { params } = match;
+    const { id } = params;
     this.setState(
       { loading: true },
       async () => {
-        const { match } = this.props;
-        const { params } = match;
-        const { id } = params;
         const request = await movieAPI.getMovie(id);
         this.setState({
           movie: request,
           loading: false,
-          id,
         });
       },
     );
@@ -45,7 +43,7 @@ class MovieDetails extends Component {
   renderDetails() {
     const { movie } = this.state;
     console.log(movie);
-    const { title, storyline, imagePath, genre, rating, subtitle } = movie;
+    const { title, storyline, imagePath, genre, rating, subtitle, id } = movie;
     return (
       <div>
         <img alt="Movie Cover" src={ `../${imagePath}` } />
@@ -59,7 +57,9 @@ class MovieDetails extends Component {
   }
 
   render() {
-    const { loading, id } = this.state;
+    const { loading } = this.state;
+    const { movie } = this.state;
+    const {id} = movie;
     if (loading) return <Loading />;
     return (
       <div data-testid="movie-details">
